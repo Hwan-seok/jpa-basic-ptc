@@ -11,8 +11,10 @@ fun main() {
     val tx = entityManager.transaction
     tx.begin()
     try {
-        val member = entityManager.find(Member::class.java, 3L)
-        member.name = "pasodkf"
+
+//        val foundMember = entityManager.find(Member::class.java, 1L)
+//        println(foundMember)
+
 
         tx.commit()
     } catch (e: Exception) {
