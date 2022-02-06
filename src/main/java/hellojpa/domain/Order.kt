@@ -9,13 +9,27 @@ class Order(
     @Id
     @GeneratedValue
     @Column(name = "order_id")
-    private var id: Long? = null,
+    var id: Long? = null,
 
-    
-    private var memberId: Long,
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    var member: Member,
 
+    var orderDate: LocalDateTime,
 
-    private var orderDate: LocalDateTime,
     @Enumerated(EnumType.STRING)
-    private var orderStatus: OrderStatus,
-)
+    var orderStatus: OrderStatus,
+
+    @OneToMany(mappedBy = "order")
+    var orderItem: MutableList<OrderItem> = mutableListOf(),
+) : BaseEntity() {
+
+    @OneToOne
+    @JoinColumn(name = "delivery_id")
+    lateinit var delivery: Delivery
+
+
+    override fun toString(): String {
+        return "Order(id=$id, member=$member, orderDate=$orderDate, orderStatus=$orderStatus)"
+    }
+}

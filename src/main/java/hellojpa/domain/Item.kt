@@ -1,21 +1,24 @@
 package hellojpa.domain
 
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
+import javax.persistence.*
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "data_type")
 class Item(
 
     @Id
     @GeneratedValue
     @Column(name = "item_id")
-    private var id: Long? = null,
+    var id: Long? = null,
 
-    private var name: String,
+    var name: String,
 
-    private var price: Int,
+    var price: Int,
 
-    private var stockQuantity: Int,
-)
+    var stockQuantity: Int,
+
+    @ManyToMany(mappedBy = "items")
+    var categories: MutableList<Category> = mutableListOf(),
+
+    ) : BaseEntity()

@@ -1,9 +1,6 @@
 package hellojpa.domain
 
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
+import javax.persistence.*
 
 
 @Entity
@@ -14,8 +11,13 @@ class OrderItem(
     private var id: Long? = null,
 
 
-    private var orderId: Long,
-    private var itemId: Long,
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private var order: Order,
+
+    @ManyToOne
+    @JoinColumn(name = "item_id")
+    private var item: Item,
 
     private var orderPrice: Int,
     private var orderCount: Int,
