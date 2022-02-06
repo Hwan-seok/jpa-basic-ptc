@@ -1,6 +1,5 @@
 package hellojpa.domain
 
-import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity
@@ -15,21 +14,19 @@ class Order(
     @JoinColumn(name = "member_id")
     var member: Member,
 
-    var orderDate: LocalDateTime,
-
     @Enumerated(EnumType.STRING)
-    var orderStatus: OrderStatus,
+    var orderStatus: OrderStatus = OrderStatus.ORDER,
 
     @OneToMany(mappedBy = "order")
     var orderItem: MutableList<OrderItem> = mutableListOf(),
 ) : BaseEntity() {
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "delivery_id")
     lateinit var delivery: Delivery
 
 
     override fun toString(): String {
-        return "Order(id=$id, member=$member, orderDate=$orderDate, orderStatus=$orderStatus)"
+        return "Order(id=$id, member=$member,  orderStatus=$orderStatus)"
     }
 }

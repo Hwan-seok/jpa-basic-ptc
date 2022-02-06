@@ -11,14 +11,14 @@ class OrderItem(
     private var id: Long? = null,
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
     private var order: Order,
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
     private var item: Item,
 
     private var orderPrice: Int,
     private var orderCount: Int,
-)
+) : BaseEntity()

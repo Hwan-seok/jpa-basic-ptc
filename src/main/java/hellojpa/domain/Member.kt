@@ -16,14 +16,16 @@ class Member(
     @Column(name = "name")
     var username: String,
 
-    var city: String,
-    var street: String,
-    var zipCode: String,
+    @Embedded
+    var workPeriod: Period,
+
+    @Embedded
+    var address: Address,
 
     @OneToMany(mappedBy = "member")
     var orders: MutableList<Order> = mutableListOf(),
 ) : BaseEntity() {
     override fun toString(): String {
-        return "Member(id=$id, username='$username', city='$city', street='$street', zipCode='$zipCode')"
+        return "Member(id=$id, username='$username', )"
     }
 }

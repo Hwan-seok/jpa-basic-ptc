@@ -10,7 +10,7 @@ class Category(
 
     var name: String,
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
     var parent: Category,
 
@@ -24,5 +24,4 @@ class Category(
         inverseJoinColumns = [JoinColumn(name = "category_id")]
     )
     var items: MutableList<Item> = mutableListOf(),
-
-    )
+) : BaseEntity()
